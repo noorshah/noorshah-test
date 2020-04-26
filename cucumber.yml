@@ -1,0 +1,1 @@
+cases: --format pretty --out=test_report.html tag @cases not @tag ~@manual not @tag ~@failing

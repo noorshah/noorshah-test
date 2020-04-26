@@ -1,0 +1,11 @@
+require 'cucumber'
+require 'rubygems'
+require 'cucumber/rake/task'
+
+profiles =YAML::load(File.open(File.join(Dir.pwd,'cucumber.yml')))
+
+profiles.each do |name,value|
+  Cucumber::Rake::Task.new(name.to_s,"Run profile #{name} : #{value}") do |t|
+    t.profile=name
+  end
+end

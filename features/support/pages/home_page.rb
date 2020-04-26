@@ -3,6 +3,6 @@ class HomePage <SitePrism::Page
   element :add_a_client,:text,'Add new client'
 
   def add_a_client_successfully
-    add_a_client.click_link
+    add_a_client.click
   end
 end

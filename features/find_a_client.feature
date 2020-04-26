@@ -1,4 +1,3 @@
-@cases
 Feature: Find an added client
 
   Scenario: I can find an added client

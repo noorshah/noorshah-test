@@ -19,6 +19,5 @@ If there are failed scenarios you can see screenshot where the scenarios failed 
 There is an html report generated too which you can see in reports folder
 
 
-Due to time contraints the section capability of site prism could not be used when adding a client, for headers for client info
-
+Issues: Sometimes due to flakiness , when running consective tests via rake the frst secnario will sign in successfully but subsequent scenarios might not sign in successfully
 

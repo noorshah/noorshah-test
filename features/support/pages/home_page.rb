@@ -49,4 +49,9 @@ class HomePage <SitePrism::Page
   def no_matches_error_shows_up
     no_matches_error.text
   end
+
+  def attempt_to_find_non_existant_client
+    wait_until_client_search_dashboard_visible(wait: 10)
+    client_search_dashboard.set('zubair')
+  end
 end

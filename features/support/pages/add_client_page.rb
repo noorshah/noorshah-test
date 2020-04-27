@@ -1,28 +1,13 @@
 require_relative '../sections/client_consent'
+require_relative '../sections/client_credentials'
 class AddClientPage <SitePrism::Page
 
 
   element :full_client_consent,"input#client_full_consent_yes"
   section :client_consent,ClientConsent,:xpath,"(//div[contains(@class,'card')])[2]"
 
-
   element :continue_adding_client_details,'button[name=showForm]'
-  element :client_first_name,'input#client_first_name'
-  element :client_last_name,'input#client_last_name'
-  element :client_day_of_birth,'input#client_date_of_birth_day'
-  element :client_month_of_birth,'input#client_date_of_birth_month'
-  element :client_year_of_birth,'input#client_date_of_birth_year'
-  element :client_postcode,'input#client_postcode_search'
-  element :find_address, :xpath,"//button[contains(@class,'btn btn-primary pull-right')]"
-  element :address_look_up,'select#cab-input-id-0'
-  element :unknown_address,'input#client_address_unknown'
-
-
-  element :title,'select#client_title'
-  element :middle_name,'input#client_middle_name'
-  element :gender,'select#client_gender'
-  element :transgender,'select#client_transgender'
-  element :ethnicity,'select#client_ethnicity_id'
+  section :client_credentials,ClientCredentials,:xpath,"(//div[contains(@class,'card')])[4]"
 
   element :client_email,'input#client_email'
   element :client_mobile_number,'input#client_mobile_phone'
@@ -62,7 +47,7 @@ class AddClientPage <SitePrism::Page
   def add_client_details
     client_consent_info
     continue_adding_client_details.click
-    first_name,last_name,day_of_birth,month_of_birth,year_of_birth,post_code=client_credentials
+    first_name,last_name,day_of_birth,month_of_birth,year_of_birth,post_code=submit_client_credentials
     client_contact_information
     client_disability_info
     client_further_info
@@ -83,28 +68,33 @@ class AddClientPage <SitePrism::Page
     client_consent.consent_referals.click
     client_consent.consent_authority_to_act.click
   end
-  def client_credentials
+  def submit_client_credentials
+
     first_name='john'+(rand(50)).to_s
     last_name='smith'+(rand(50)).to_s
     day_of_birth=(rand(1..28)).to_s
     month_of_birth=(rand(1..12)).to_s
     year_of_birth=(rand(1940..2002)).to_s
     post_code='RH10 9AD'
-    client_first_name.set(first_name)
-    client_last_name.set(last_name)
-    client_day_of_birth.set(day_of_birth)
-    client_month_of_birth.set(month_of_birth)
-    client_year_of_birth.set(year_of_birth)
-    client_postcode.set(post_code)
-    find_address.click
-    address_look_up.select('Boeing UK Training & Flight Services, Boeing House, Crawley Business Quarter, Manor Royal, Crawley, West Sussex, RH10 9AD')
+
+    client_credentials.client_first_name.set(first_name)
+    client_credentials.client_last_name.set(last_name)
+    client_credentials.client_day_of_birth.set(day_of_birth)
+    client_credentials.client_month_of_birth.set(month_of_birth)
+    client_credentials.client_year_of_birth.set(year_of_birth)
+    client_credentials.client_postcode.set(post_code)
+    client_credentials.find_address.click
+    client_credentials.address_look_up.select('Boeing UK Training & Flight Services, Boeing House, Crawley Business Quarter, Manor Royal, Crawley, West Sussex, RH10 9AD')
+
+    client_credentials.title.select('Mr')
+    client_credentials.middle_name.set('mathew')
+    client_credentials.gender.select('Male')
+    client_credentials.ethnicity.select('White - British')
+
     return first_name,last_name,day_of_birth,month_of_birth,year_of_birth,post_code
   end
   def client_contact_information
-    title.select('Mr')
-    middle_name.set('mathew')
-    gender.select('Male')
-    ethnicity.select('White - British')
+
 
     client_email.set('john.smith@gmail.com')
     client_mobile_number.set('07123434343')
@@ -133,13 +123,13 @@ class AddClientPage <SitePrism::Page
   def submit_exising_client_details
     full_client_consent.click
     continue_adding_client_details.click
-    client_first_name.set('john')
-    client_last_name.set('smith')
-    client_day_of_birth.set('11')
-    client_month_of_birth.set('06')
-    client_year_of_birth.set('1988')
-    client_postcode.set('RH10 9AD')
-    find_address.click
+    client_credentials.client_first_name.set('john')
+    client_credentials.client_last_name.set('smith')
+    client_credentials.client_day_of_birth.set('11')
+    client_credentials.client_month_of_birth.set('06')
+    client_credentials.client_year_of_birth.set('1988')
+    cclient_credentials.lient_postcode.set('RH10 9AD')
+    client_credentials.find_address.click
   end
 
 end

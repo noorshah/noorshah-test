@@ -1,5 +1,6 @@
 require_relative '../sections/client_consent'
 require_relative '../sections/client_credentials'
+require_relative '../sections/client_contact_information'
 class AddClientPage <SitePrism::Page
 
 
@@ -9,16 +10,7 @@ class AddClientPage <SitePrism::Page
   element :continue_adding_client_details,'button[name=showForm]'
   section :client_credentials,ClientCredentials,:xpath,"(//div[contains(@class,'card')])[4]"
 
-  element :client_email,'input#client_email'
-  element :client_mobile_number,'input#client_mobile_phone'
-  element :client_home_number,'input#client_home_phone'
-  element :client_work_number,'input#client_work_phone'
-  element :client_can_send_letter,'input#client_can_send_letter'
-  element :client_prefered_contact_method,'input#client_preferred_contact_method_any'
-  element :client_further_contact_information,'textarea#client_contact_information'
-  element :client_feedback_contact_method_letter,'input[value=letter]'
-
-
+  section :client_contact_info,ClientContactInfo,:xpath,"((//div[contains(@class,'card')])[4]//div[contains(@class,'card card-secondary')])[3]"
 
   element :client_disability_long_term,'input#client_health_problem_long_term'
   element :visual_impairment,'input#client_disability_ids_0_3'
@@ -94,15 +86,13 @@ class AddClientPage <SitePrism::Page
     return first_name,last_name,day_of_birth,month_of_birth,year_of_birth,post_code
   end
   def client_contact_information
-
-
-    client_email.set('john.smith@gmail.com')
-    client_mobile_number.set('07123434343')
-    client_home_number.set('01737773434')
-    client_work_number.set('02022222222')
-    client_can_send_letter.click
-    client_further_contact_information.set('please make sure information is accessible')
-    client_feedback_contact_method_letter.click
+    client_contact_info.client_email.set('john.smith@gmail.com')
+    client_contact_info.client_mobile_number.set('07123434343')
+    client_contact_info.client_home_number.set('01737773434')
+    client_contact_info.client_work_number.set('02022222222')
+    client_contact_info.client_can_send_letter.click
+    client_contact_info.client_further_contact_information.set('please make sure information is accessible')
+    client_contact_info.client_feedback_contact_method_letter.click
   end
   def client_disability_info
     client_disability_long_term.click

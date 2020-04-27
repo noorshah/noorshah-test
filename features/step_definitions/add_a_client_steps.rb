@@ -9,7 +9,8 @@ end
 When("I add a client by filling relevant details") do
   @home_page.add_a_client
   @client_page=AddClientPage.new
-  @full_name,@date_of_birth=@client_page.add_client_details
+  @full_name,@date_of_birth,@post_code=@client_page.add_client_details
+
 end
 
 Then("I the client is added successfully") do

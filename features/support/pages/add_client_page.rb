@@ -70,14 +70,14 @@ class AddClientPage <SitePrism::Page
   def add_client_details
     client_consent_info
     continue_adding_client_details.click
-    first_name,last_name,day_of_birth,month_of_birth,year_of_birth=client_credentials
+    first_name,last_name,day_of_birth,month_of_birth,year_of_birth,post_code=client_credentials
     client_contact_information
     client_disability_info
     client_further_info
     save_client_info.click
     full_name =first_name+' mathew '+last_name
     date_of_birth=day_of_birth+'-'+month_of_birth+'-'+year_of_birth
-    return full_name,date_of_birth
+    return full_name,date_of_birth,post_code
   end
 
   def client_consent_info
@@ -97,15 +97,16 @@ class AddClientPage <SitePrism::Page
     day_of_birth=(rand(1..28)).to_s
     month_of_birth=(rand(1..12)).to_s
     year_of_birth=(rand(1940..2002)).to_s
+    post_code='RH10 9AD'
     client_first_name.set(first_name)
     client_last_name.set(last_name)
     client_day_of_birth.set(day_of_birth)
     client_month_of_birth.set(month_of_birth)
     client_year_of_birth.set(year_of_birth)
-    client_postcode.set('RH10 9AD')
+    client_postcode.set(post_code)
     find_address.click
-    unknown_address.click
-    return first_name,last_name,day_of_birth,month_of_birth,year_of_birth
+    address_look_up.select('Boeing UK Training & Flight Services, Boeing House, Crawley Business Quarter, Manor Royal, Crawley, West Sussex, RH10 9AD')
+    return first_name,last_name,day_of_birth,month_of_birth,year_of_birth,post_code
   end
   def client_contact_information
     title.select('Mr')

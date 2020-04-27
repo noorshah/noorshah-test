@@ -9,6 +9,7 @@ class HomePage <SitePrism::Page
   element :client_search_typeahead,'table#find_client_dashboard_listbox tr#find_client_dashboard_listbox_0'
   element :client_name_found,'h1'
   element :client_date_of_birth_found,:xpath,'(//dl[contains(@class,property-list)])[2]//dd[1]'
+  element :client_address_found,"div#personal_details_view_body > div.card.card-secondary p:last-child"
 
   element :no_matches_error,'div#find_client_dashboard_not-found'
 
@@ -41,9 +42,10 @@ class HomePage <SitePrism::Page
     client_name_found.text
   end
 
-  def verify_client_details(full_name,date_of_birth)
+  def verify_client_details(full_name,date_of_birth,post_code)
     extracted_date_of_birth=client_date_of_birth_found.text.split(' ')[0]+'-'+(Date::ABBR_MONTHNAMES.index(client_date_of_birth_found.text.split(' ')[1])).to_s+'-'+client_date_of_birth_found.text.split(' ')[2]
-    date_of_birth==extracted_date_of_birth &&full_name==client_name_found.text
+
+    date_of_birth==extracted_date_of_birth &&full_name==client_name_found.text&& (client_address_found.text).include?(post_code)
   end
 
   def no_matches_error_shows_up

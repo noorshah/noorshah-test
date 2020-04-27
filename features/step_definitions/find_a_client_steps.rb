@@ -12,7 +12,7 @@ end
 Then("I can I search for that client and verify details") do
   @client_page.case_book_logo.click
   @home_page.search_for_existing_client(@full_name)
-  @home_page.verify_client_details(@full_name,@date_of_birth)
+  @home_page.verify_client_details(@full_name,@date_of_birth,@post_code)
 end
 
 When("I attempt to find a non existant client") do

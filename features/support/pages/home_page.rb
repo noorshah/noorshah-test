@@ -7,6 +7,7 @@ class HomePage <SitePrism::Page
 
   element :client_search_dashboard,'input#find_client_dashboard'
   element :client_search_typeahead,'table#find_client_dashboard_listbox tr#find_client_dashboard_listbox_0'
+  element :client_name_found,'h1'
 
 
 
@@ -24,8 +25,14 @@ class HomePage <SitePrism::Page
     sign_out.click
   end
 
-  def search_for_existing_client
-    client_search_dashboard.set('casper casper gasper')
+  def search_for_existing_client(client_name)
+    wait_until_client_search_dashboard_visible(wait: 10)
+    client_search_dashboard.set(client_name)
     client_search_typeahead.click
+  end
+
+  def get_found_client_details
+    wait_until_client_name_found_visible(wait: 30)
+    client_name_found.text
   end
 end

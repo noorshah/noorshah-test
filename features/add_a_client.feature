@@ -1,5 +1,5 @@
 @cases
-Feature: Add a client
+Feature: Add a client by filling out all mandatory and optional fields
 
   Scenario: Add a client
     Given I log into the cases system successfully

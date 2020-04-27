@@ -1,6 +1,8 @@
 require_relative '../sections/client_consent'
 require_relative '../sections/client_credentials'
 require_relative '../sections/client_contact_information'
+require_relative '../sections/client_further_info'
+require_relative '../sections/client_disability_info'
 class AddClientPage <SitePrism::Page
 
 
@@ -11,27 +13,11 @@ class AddClientPage <SitePrism::Page
   section :client_credentials,ClientCredentials,:xpath,"(//div[contains(@class,'card')])[4]"
 
   section :client_contact_info,ClientContactInfo,:xpath,"((//div[contains(@class,'card')])[4]//div[contains(@class,'card card-secondary')])[3]"
-
-  element :client_disability_long_term,'input#client_health_problem_long_term'
-  element :visual_impairment,'input#client_disability_ids_0_3'
-  element :speech_impairment,'input#client_disability_ids_0_4'
-  element :hard_of_hearing,'input#client_disability_ids_0_5'
-  element :deaf,'input#client_disability_ids_0_10'
-
-
-  element :client_further_information,'input#client_further_profile_information'
-  element :client_household_type,'select#client_household_type_id'
-  element :client_housing_type,'select#client_housing_tenure_id'
-  element :client_occupation,'select#client_occupation_id'
-  element :client_national_insurance_number,'input#client_ni_number'
-  element :client_sexual_orientation,'select#client_sexual_orientation'
-  element :client_marital_status,'select#client_marital_status'
-  element :client_nationality,'input#client_nationality_id'
-  element :client_religion,'select#client_religion_id'
+  section :client_disability_info,ClientDisabilityInfo,:xpath,"((//div[contains(@class,'card')])[4]//div[contains(@class,'card card-secondary')])[4]"
+  section :client_further_info,ClientFurtherInfo,:xpath,"((//div[contains(@class,'card')])[4]//div[contains(@class,'card card-secondary')])[5]"
 
   element :save_client_info,'button.btn.btn-success.pull-right'
   element :case_book_logo,'a.header__logo'
-
   element :duplicate_client_error,'div.alert.alert-info strong'
 
 
@@ -41,8 +27,8 @@ class AddClientPage <SitePrism::Page
     continue_adding_client_details.click
     first_name,last_name,day_of_birth,month_of_birth,year_of_birth,post_code=submit_client_credentials
     client_contact_information
-    client_disability_info
-    client_further_info
+    submit_client_disability_info
+    submit_client_further_info
     save_client_info.click
     full_name =first_name+' mathew '+last_name
     date_of_birth=day_of_birth+'-'+month_of_birth+'-'+year_of_birth
@@ -94,20 +80,20 @@ class AddClientPage <SitePrism::Page
     client_contact_info.client_further_contact_information.set('please make sure information is accessible')
     client_contact_info.client_feedback_contact_method_letter.click
   end
-  def client_disability_info
-    client_disability_long_term.click
+  def submit_client_disability_info
+    client_disability_info.client_disability_long_term.click
   end
-  def client_further_info
-    client_further_information.click
-    client_household_type.select('Single Person')
-    client_housing_type.select('Own Outright')
-    client_occupation.select('Employed >= 30hrs p/w')
-    client_national_insurance_number.set('SP411155A')
-    client_sexual_orientation.select('Heterosexual/Straight')
-    client_marital_status.select('Single')
-    client_nationality.set('UK - British')
+  def submit_client_further_info
+    client_further_info.client_further_information.click
+    client_further_info.client_household_type.select('Single Person')
+    client_further_info.client_housing_type.select('Own Outright')
+    client_further_info.client_occupation.select('Employed >= 30hrs p/w')
+    client_further_info.client_national_insurance_number.set('SP411155A')
+    client_further_info.client_sexual_orientation.select('Heterosexual/Straight')
+    client_further_info.client_marital_status.select('Single')
+    client_further_info.client_nationality.set('UK - British')
     find('div#client_nationality_id_listbox_0').click
-    client_religion.select('Muslim')
+    client_further_info.client_religion.select('Muslim')
   end
 
   def submit_exising_client_details
@@ -118,7 +104,7 @@ class AddClientPage <SitePrism::Page
     client_credentials.client_day_of_birth.set('11')
     client_credentials.client_month_of_birth.set('06')
     client_credentials.client_year_of_birth.set('1988')
-    cclient_credentials.lient_postcode.set('RH10 9AD')
+    client_credentials.client_postcode.set('RH10 9AD')
     client_credentials.find_address.click
   end
 

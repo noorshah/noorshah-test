@@ -8,6 +8,8 @@ class HomePage <SitePrism::Page
   element :client_search_dashboard,'input#find_client_dashboard'
   element :client_search_typeahead,'table#find_client_dashboard_listbox tr#find_client_dashboard_listbox_0'
   element :client_name_found,'h1'
+  element :client_date_of_birth_found,:xpath,'(//dl[contains(@class,property-list)])[2]//dd[1]'
+
 
 
 
@@ -21,12 +23,13 @@ class HomePage <SitePrism::Page
   end
 
   def sign_out_successfully
+    wait_until_user_menu_visible(wait: 10)
     user_menu.click
     sign_out.click
   end
 
   def search_for_existing_client(client_name)
-    wait_until_client_search_dashboard_visible(wait: 10)
+    wait_until_client_search_dashboard_visible(wait: 30)
     client_search_dashboard.set(client_name)
     client_search_typeahead.click
   end
@@ -34,5 +37,10 @@ class HomePage <SitePrism::Page
   def get_found_client_details
     wait_until_client_name_found_visible(wait: 30)
     client_name_found.text
+  end
+
+  def verify_client_details(full_name,date_of_birth)
+    extracted_date_of_birth=client_date_of_birth_found.text.split(' ')[0]+'-'+(Date::ABBR_MONTHNAMES.index(client_date_of_birth_found.text.split(' ')[1])).to_s+'-'+client_date_of_birth_found.text.split(' ')[2]
+    date_of_birth==extracted_date_of_birth &&full_name==client_name_found.text
   end
 end

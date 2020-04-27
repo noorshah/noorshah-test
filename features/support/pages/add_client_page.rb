@@ -22,6 +22,7 @@ class AddClientPage <SitePrism::Page
   element :client_year_of_birth,'input#client_date_of_birth_year'
   element :client_postcode,'input#client_postcode_search'
   element :find_address, :xpath,"//button[contains(@class,'btn btn-primary pull-right')]"
+  element :address_look_up,'select#cab-input-id-0'
   element :unknown_address,'input#client_address_unknown'
 
 
@@ -38,7 +39,7 @@ class AddClientPage <SitePrism::Page
   element :client_can_send_letter,'input#client_can_send_letter'
   element :client_prefered_contact_method,'input#client_preferred_contact_method_any'
   element :client_further_contact_information,'textarea#client_contact_information'
-  element :client_feedback_contact_method_letter,'input#client_required_feedback_preference_0_letter'
+  element :client_feedback_contact_method_letter,'input[value=letter]'
 
 
 
@@ -60,17 +61,21 @@ class AddClientPage <SitePrism::Page
   element :client_religion,'select#client_religion_id'
 
   element :save_client_info,'button.btn.btn-success.pull-right'
+  element :case_book_logo,'a.header__logo'
 
 
 
   def add_client_details
     client_consent_info
     continue_adding_client_details.click
-    client_credentials
+    first_name,last_name,day_of_birth,month_of_birth,year_of_birth=client_credentials
     client_contact_information
     client_disability_info
     client_further_info
     save_client_info.click
+    full_name =first_name+' mathew '+last_name
+    date_of_birth=day_of_birth+'-'+month_of_birth+'-'+year_of_birth
+    return full_name,date_of_birth
   end
 
   def client_consent_info
@@ -85,14 +90,20 @@ class AddClientPage <SitePrism::Page
     consent_authority_to_act.click
   end
   def client_credentials
-    client_first_name.set('john'+(rand(50)).to_s)
-    client_last_name.set('smith'+(rand(50)).to_s)
-    client_day_of_birth.set((rand(1..28)).to_s)
-    client_month_of_birth.set((rand(1..12)).to_s)
-    client_year_of_birth.set((rand(1950..2020)).to_s)
+    first_name='john'+(rand(50)).to_s
+    last_name='smith'+(rand(50)).to_s
+    day_of_birth=(rand(1..28)).to_s
+    month_of_birth=(rand(1..12)).to_s
+    year_of_birth=(rand(1940..2002)).to_s
+    client_first_name.set(first_name)
+    client_last_name.set(last_name)
+    client_day_of_birth.set(day_of_birth)
+    client_month_of_birth.set(month_of_birth)
+    client_year_of_birth.set(year_of_birth)
     client_postcode.set('RH10 9AD')
     find_address.click
     unknown_address.click
+    return first_name,last_name,day_of_birth,month_of_birth,year_of_birth
   end
   def client_contact_information
     title.select('Mr')
@@ -123,4 +134,5 @@ class AddClientPage <SitePrism::Page
     find('div#client_nationality_id_listbox_0').click
     client_religion.select('Muslim')
   end
+
 end

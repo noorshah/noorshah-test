@@ -19,5 +19,5 @@ If there are failed scenarios you can see screenshot where the scenarios failed 
 There is an html report generated too which you can see in reports folder
 
 
-Issues: Sometimes due to flakiness , when running consective tests via rake the frst secnario will sign in successfully but subsequent scenarios might not sign in successfully
+Issues Sometimes due to flakiness , when running consective tests via rake the frst secnario will sign in successfully but subsequent scenarios might not sign in successfully
 

@@ -20,3 +20,12 @@ end
 Then("I sign out of cases system") do
   @home_page.sign_out_successfully
 end
+
+When("I submit details of an existing client") do
+  @home_page.add_a_client
+  AddClientPage.new.submit_exising_client_details
+end
+
+Then("I get existing client error") do
+  AddClientPage.new.duplicate_client_error.text=="1 possible duplicate client found"
+end

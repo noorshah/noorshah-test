@@ -16,6 +16,7 @@ Then("I can I search for that client and verify details") do
 end
 
 When("I attempt to find a non existant client") do
+  @home_page.wait_until_client_search_dashboard_visible(wait: 10)
   @home_page.client_search_dashboard.set('zubair')
 end
 

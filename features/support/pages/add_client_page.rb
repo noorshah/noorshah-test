@@ -63,6 +63,8 @@ class AddClientPage <SitePrism::Page
   element :save_client_info,'button.btn.btn-success.pull-right'
   element :case_book_logo,'a.header__logo'
 
+  element :duplicate_client_error,'div.alert.alert-info strong'
+
 
 
   def add_client_details
@@ -133,6 +135,18 @@ class AddClientPage <SitePrism::Page
     client_nationality.set('UK - British')
     find('div#client_nationality_id_listbox_0').click
     client_religion.select('Muslim')
+  end
+
+  def submit_exising_client_details
+    full_client_consent.click
+    continue_adding_client_details.click
+    client_first_name.set('john')
+    client_last_name.set('smith')
+    client_day_of_birth.set('11')
+    client_month_of_birth.set('06')
+    client_year_of_birth.set('1988')
+    client_postcode.set('RH10 9AD')
+    find_address.click
   end
 
 end

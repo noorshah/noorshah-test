@@ -14,5 +14,9 @@ end
 
 Then("I the client is added successfully") do
   @home_page.client_is_added
-  puts @home_page.client_is_added
+  expect(@home_page.client_is_added).to be true
+end
+
+Then("I sign out of cases system") do
+  @home_page.sign_out_successfully
 end

@@ -85,17 +85,16 @@ class AddClientPage <SitePrism::Page
     consent_authority_to_act.click
   end
   def client_credentials
-    client_first_name.set('john')
-    client_last_name.set('smith')
-    client_day_of_birth.set('11')
-    client_month_of_birth.set('06')
-    client_year_of_birth.set('1988')
+    client_first_name.set('john'+(rand(50)).to_s)
+    client_last_name.set('smith'+(rand(50)).to_s)
+    client_day_of_birth.set((rand(1..28)).to_s)
+    client_month_of_birth.set((rand(1..12)).to_s)
+    client_year_of_birth.set((rand(1950..2020)).to_s)
     client_postcode.set('RH10 9AD')
     find_address.click
     unknown_address.click
   end
   def client_contact_information
-
     title.select('Mr')
     middle_name.set('mathew')
     gender.select('Male')

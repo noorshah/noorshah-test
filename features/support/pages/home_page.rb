@@ -10,6 +10,8 @@ class HomePage <SitePrism::Page
   element :client_name_found,'h1'
   element :client_date_of_birth_found,:xpath,'(//dl[contains(@class,property-list)])[2]//dd[1]'
 
+  element :no_matches_error,'div#find_client_dashboard_not-found'
+
 
 
 
@@ -42,5 +44,9 @@ class HomePage <SitePrism::Page
   def verify_client_details(full_name,date_of_birth)
     extracted_date_of_birth=client_date_of_birth_found.text.split(' ')[0]+'-'+(Date::ABBR_MONTHNAMES.index(client_date_of_birth_found.text.split(' ')[1])).to_s+'-'+client_date_of_birth_found.text.split(' ')[2]
     date_of_birth==extracted_date_of_birth &&full_name==client_name_found.text
+  end
+
+  def no_matches_error_shows_up
+    no_matches_error.text
   end
 end

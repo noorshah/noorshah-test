@@ -14,6 +14,11 @@ Feature: Find an existing client and verify details of a newly added client
      Then I can I search for that client and verify details
      And I sign out of cases system
 
+     Scenario:  I cannot find a client that does not exist
+       Given I log into the cases system successfully
+       When I attempt to find a non existant client
+       Then I get an error 'No matches found'
+
 
 
 

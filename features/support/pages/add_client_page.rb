@@ -1,17 +1,9 @@
+require_relative '../sections/client_consent'
 class AddClientPage <SitePrism::Page
 
 
   element :full_client_consent,"input#client_full_consent_yes"
-
-  element :consent_ethnicity,'input#client_consent_to_ethnicity'
-  element :consent_disability_and_health,'input#client_consent_to_health_details'
-  element :consent_religion,'input#client_consent_to_religion'
-  element :consent_sexual_orientation,'input#client_consent_to_sexual_orientation'
-  element :consent_trade_union_membership,'input#client_consent_to_trade_union_membership'
-
-  element :consent_collecting_feedback,'input#client_consent_to_follow_up'
-  element :consent_referals,'input#client_consent_to_share'
-  element :consent_authority_to_act,'input#client_consent_to_act'
+  section :client_consent,ClientConsent,:xpath,"(//div[contains(@class,'card')])[2]"
 
 
   element :continue_adding_client_details,'button[name=showForm]'
@@ -82,14 +74,14 @@ class AddClientPage <SitePrism::Page
 
   def client_consent_info
     full_client_consent.click
-    consent_ethnicity.click
-    consent_disability_and_health.click
-    consent_religion.click
-    consent_sexual_orientation.click
-    consent_trade_union_membership.click
-    consent_collecting_feedback.click
-    consent_referals.click
-    consent_authority_to_act.click
+    client_consent.consent_ethnicity.click
+    client_consent.consent_disability_and_health.click
+    client_consent.consent_religion.click
+    client_consent.consent_sexual_orientation.click
+    client_consent.consent_trade_union_membership.click
+    client_consent.consent_collecting_feedback.click
+    client_consent.consent_referals.click
+    client_consent.consent_authority_to_act.click
   end
   def client_credentials
     first_name='john'+(rand(50)).to_s
